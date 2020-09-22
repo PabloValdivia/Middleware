@@ -1,4 +1,5 @@
 .sass-cache/
+composer.lock
 public/assets/scss/
 public/assets/demo/
 public/views/cache/
