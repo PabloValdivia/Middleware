@@ -1,25 +1,13 @@
 $(document).ready(function(){
-    var resp = '#app';
+    const resp = '#app';
+    const tkn = $('#tkn').val();
     
-    $('#search').on('submit', function(e){
-        e.preventDefault();
-        var f = $(this).serialize();
-
-        var url_controller = '/controller/' + $(this).find('#module').val() + '.php' + '?token=' + token;
-        console.log(url_controller);    
-
-        /*$.ajax({
-            url: url_controller,
-            type: 'POST',
-            dataType: 'json',
-            data: {form: f},
-            success: function(data) { 
-                console.log(data);
-            },
-            error: function() {
-                console.log(url_controller);
-                console.error('No hay que mostrar');
-            }
-        });*/
+    $('.nav-link').on('click', function(){
+        
+        let url_controller = `/controller/${atob($(this).data('module'))}.php?token=${tkn}`;
+        $.post( url_controller, {module: $(this).data('module'), controller: $(this).data('controller'), token: btoa(tkn)}, response => { 
+            $(resp).html(response);
+            $('.table').DataTable();
+        });
     });
 });

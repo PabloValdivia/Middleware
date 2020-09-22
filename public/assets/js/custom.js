@@ -2,11 +2,7 @@ $(document).ready(function(){
 
     /** Sidebar */
     $('.nav-item').on('click', function() {
-        if (true) 
-            console.log(true);
-        else
-            console.log(false);
-            alert(false);
-            console.log(false);
+        $('.nav-item').removeClass('active');
+        $(this).addClass('active');
     });
 });

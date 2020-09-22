@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+ini_set('display_errors', '1');
+
 /**
  *
  * Author : David Marquez
@@ -39,24 +42,27 @@ class DB
             'user' => 'adempiere',
             'pass' => 'adempiere',
             'port' => '5432',
-            'system' => 'postgres8'),
+            'system' => 'postgres8',
+            'name' => 'idempiere'
+        ),
         'prestashop' => array (
-            'host' => '192.168.0.91', 
-            'user' => 'totto',
-            'pass' => 'T0tt014',
+            'host' => 'localhost', 
+            'user' => 'pan_web',
+            'pass' => '439511541',
             'port' => '3306',
-            'system' => 'mysqli'
+            'system' => 'mysqli',
+            'name' => 'todomarket'
         )
     );
 
     /** Database Fetch mode */
-    private $DB_FETCH_MODE = 'ADODB_FETCH_ASSOC';
+    private $DB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
     /** Database Connection */
     public $connection;
 
     public function __construct($platform){
-        $this->connection = new ADOConnection($this->credential[$platform]['system']);
+        $this->connection = newADOConnection($this->credential[$platform]['system']);
         $this->connection->connect(
             $this->credential[$platform]['host'], 
             $this->credential[$platform]['user'], 
@@ -64,6 +70,7 @@ class DB
             $this->credential[$platform]['name']
         );
         $this->connection->setCharset($this->credential[$platform]['charset']);
+        $this->connection->selectDb($this->credential[$platform]['name']);
         $this->connection->setFetchMode($this->DB_FETCH_MODE); 
     }
 }

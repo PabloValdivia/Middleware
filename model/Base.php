@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+ini_set('display_errors', '1');
 
 /** Smarty **/
 include(VNDPH . 'smarty/libs/Smarty.class.php');
@@ -16,6 +18,8 @@ class Base
     /** Index of code process */
     public $index = 0;
 
+    public $data;
+
     /**
      * Validate that the keys received match.
      *
@@ -23,9 +27,9 @@ class Base
      */
     public $keys;
 
-	public function isValid($token = null) {
+	public function isValid() {
         $this->index++;
-		return $token['GT'] === sha1($token['PT']);
+		return base64_encode($this->keys['GT']) === $this->keys['PT'];
     }
 
     /**
@@ -34,14 +38,13 @@ class Base
      *
      * @return string
      */
-    public $moduleList = "brand|category|order|partner";
+    private $moduleList = "brand|category|order|partner";
 
-    /** Model */
-    public $module = null;
+    public $module;
 
-    public function isModule ( $module ) {
+    public function isModule () {
         $this->index++;
-        return in_array($module, explode("|", $this->moduleList));
+        return in_array($this->module, explode("|", $this->moduleList));
     }
 
     /**
@@ -50,14 +53,13 @@ class Base
      *
      * @return string
      */
-    public $actionList = "create|read|update|delete";
+    private $actionList = "create|read|update|delete";
 
-    /** Action */
     public $action = null;
 
-    public function isCRUD( $action ) {
+    public function isCRUD() {
         $this->index++;
-        return in_array($action, explode("|", $this->actionList));
+        return in_array($this->action, explode("|", $this->actionList));
     }
     
     /**
@@ -67,20 +69,23 @@ class Base
 	 */    
     public $view;
     public $html;
+    public $title;
+    public $description;
 
-	public function getView( $module, $action ) {
+	public function getView() {
         $this->index++;
 		/** The class is instantiated to build the views that will be supplied to the client. **/
-		$this->view = new Smarty;
-        $this->view->template_dir = PUBPH . 'views/modules/';
-        $this->view->compile_dir = VNDPH . 'smarty/demo/templates_c/';
-        $this->view->config_dir = VNDPH . 'smarty/demo/configs/';
-        $this->view->cache_dir = VNDPH . 'smarty/demo/cache/';
+        $this->view = new Smarty;
+        $this->view->caching = true;
+        $this->view->setTemplateDir(PUBPH . 'views/modules/')
+                    ->setCacheDir(PUBPH . 'views/cache')
+                    ->setCompileDir(PUBPH . 'views_c/');
         
-        $this->html = $this->template_dir . $module . $action . '.tpl';
+        $this->html = $this->view->getTemplateDir(0) . '/' . $this->module . '/' . $this->action . '.tpl';
     }
 
     public function isView() {
+        $this->index++;
         return is_file($this->html);
     }
     
@@ -90,7 +95,7 @@ class Base
      *
      * @return array
      */
-    public $responseList = array (
+    private $responseList = array (
         'spanish'   =>  array (
             'system'=>	array (
                 1   =>  '¡Error de criptografia en la clave asimetrica RSA/PKCS!',
@@ -120,9 +125,9 @@ class Base
             )
         )
     );
-    public $_error = null;
+    public $_error;
 
-    public function getError($_lang = 0, $module, $index) {
-        $this->_error = $this->responseList[$_lang][$module][$index];
+    public function getError($_lang = 0) {
+        $this->_error = $this->responseList[$_lang][$this->module][$this->index];
     }
 }

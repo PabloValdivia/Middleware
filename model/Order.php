@@ -1,8 +1,9 @@
 <?php
+
 /**
  *
  * Author : David Marquez
- * Date   : 20 September 2020
+ * Date   : 22 September 2020
  * 
  */
 require(MDLPH . 'Base.php');
@@ -13,6 +14,9 @@ class Order extends Base
     /** DB Connection */
     private $db;
 
+    /** Table Head */
+    public $thead = ['ID', 'Reference', 'Customer', 'Payment Method', 'Total'];
+
     /** Order ID */
     private $id = 0;
 
@@ -22,21 +26,21 @@ class Order extends Base
     /** Order Reference */
     public $doc_reference = '';
 
-    /** Data */
-    public $data;
-
-    public function readOrder($scope) {
+    public function readOrder()
+    {
         $this->db = new DB('prestashop');
+
         if ( $this->db->connection->isConnected() ) {
-            $this->data = $this->db->connection->getAll('select * from tm_orders');
-            
-            if ( $this->data->numRows() > 0 ) {
-                $this->index++;
-            } else {
-                $this->getError(0, $this->module, $this->index);
-            }
+            $this->data = $this->db->connection
+                ->getAll(
+                    "SELECT tor.id_order, tor.reference, CONCAT(tc.firstname, ' ', tc.lastname) as name, tor.payment, tor.total_paid
+                    FROM tm_orders tor
+                    left join tm_customer tc on tor.id_customer = tc.id_customer"
+                );
+            $this->title = $this->module;
+            $this->description = ucfirst($this->module) . ' details';
         } else {
-            $this->_errror = $this->db->connection->errorMsg();
+            $this->_error = $this->db->connection->errorMsg();
         }
     }
 }

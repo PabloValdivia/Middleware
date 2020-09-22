@@ -1,8 +1,8 @@
 <?php
 
-@session_destroy();
-@session_start();
+session_start();
 
+$_SESSION['temp'] = time();
 require_once('./config/config.php');
 
 ?>
@@ -11,43 +11,45 @@ require_once('./config/config.php');
 <head>
     <title><?= $_NAME ?></title>
     <link rel="shortcut icon" href="./public/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css"></script>
     <link rel="stylesheet" href="./public/assets/css/material-dashboard.min.css">
     <link rel="stylesheet" href="./public/assets/css/custom.css">
 </head>
 <body class="dark-edition">
     <div class="wrapper">
-        <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
+        <div class="sidebar" data-color="purple" data-background-color="black" data-image="./public/assets/img/sidebar-2.jpg">
             <div class='logo'>
-                <a class="simple-text logo-normal"><?= $_NAME ?></a>    
+                <a class="simple-text logo-normal"><?= $_NAME ?></a>   
+                <input type="hidden" id="tkn" value="<?= sha1($tkn) ?>"> 
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a class="nav-link" data-module="<?= base64_encode('dashboard') ?>" data-controller="<?= base64_encode('read') ?>">
+                        <a class="nav-link" data-module="<?= base64_encode('Dashboard') ?>" data-controller="<?= base64_encode('read') ?>">
                             <i class="fa fa-dashboard"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('brand') ?>" data-controller="<?= base64_encode('read') ?>">
+                        <a class="nav-link" data-module="<?= base64_encode('Brand') ?>" data-controller="<?= base64_encode('read') ?>">
                             <i class="fa fa-building"></i>
                             <p>Brand</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('category') ?>" data-controller="<?= base64_encode('read') ?>">
+                        <a class="nav-link" data-module="<?= base64_encode('Category') ?>" data-controller="<?= base64_encode('read') ?>">
                             <i class="fa fa-tasks"></i>
                             <p>Category</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('order') ?>" data-controller="<?= base64_encode('read') ?>">
+                        <a class="nav-link" data-module="<?= base64_encode('Order') ?>" data-controller="<?= base64_encode('read') ?>">
                             <i class="fa fa-paste"></i>
                             <p>Order</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('product') ?>" data-controller="<?= base64_encode('read') ?>">
+                        <a class="nav-link" data-module="<?= base64_encode('Product') ?>" data-controller="<?= base64_encode('read') ?>">
                             <i class="fa fa-dropbox"></i>
                             <p>Product</p>
                         </a>
@@ -116,7 +118,6 @@ require_once('./config/config.php');
             </header>
             <div class="content">
                 <div id="app" class="container-fluid">
-
                 </div>
             </div>
             <footer class="footer">
@@ -137,9 +138,9 @@ require_once('./config/config.php');
     </div>    
     <script src="./vendor/jquery/jquery-3.5.1.min.js"></script>
     <!--   Core JS Files   -->
-    <script src="./public/assets/js/core/jquery.min.js"></script>
     <script src="./public/assets/js/core/popper.min.js"></script>
     <script src="./public/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="./vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Chartist JS -->
     <script src="./public/assets/js/plugins/chartist.min.js"></script>
@@ -147,7 +148,7 @@ require_once('./config/config.php');
     <script src="./public/assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="./public/assets/js/material-dashboard.js?v=2.1.0"></script>
-    <script> token = '<?php echo sha1($tkn); ?>' ; </script>
     <script src="./public/assets/js/main.js"></script>   
+    <script src="./public/assets/js/custom.js"></script>
 </body>
 </html>
