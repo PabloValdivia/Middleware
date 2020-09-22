@@ -12,6 +12,7 @@
     "require": {
         "adodb/adodb-php": ">=5.20.18",
         "smarty/smarty": ">=3.1.36",
-        "phpunit/phpunit": "9.3.10"
+        "phpunit/phpunit": "7.5.20",
+        "twbs/bootstrap": "4.5.0"
     }
 }
