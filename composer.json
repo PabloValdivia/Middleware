@@ -1,0 +1,17 @@
+{
+    "name": "sumagroups/middleware",
+    "description": "This app handle all transactions between PrestaShop and iDempiere",
+    "homepage": "http://www.sumagroups.com/",
+    "authors": [
+        {
+            "name": "Totto Marquez",
+            "email": "davidmarsant@gmail.com",
+            "role": "Project Manager"
+        }
+    ],
+    "require": {
+        "adodb/adodb-php": ">=5.20.18",
+        "smarty/smarty": ">=3.1.36",
+        "phpunit/phpunit": "9.3.10"
+    }
+}

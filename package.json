@@ -1,0 +1,10 @@
+{
+    "repository": {
+        "directory": "",
+        "type": "",
+        "url": ""
+    },
+    "name": "middleware",
+    "description": "this app handles all transactions between",
+    "version": "1.0.0"
+}
