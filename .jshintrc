@@ -1,11 +1,11 @@
 {
     "browser": true,
-    
     "curly": true,
     "eqeqeq": true,
     "esversion": 6,
     "maxparams": 5,
     "maxstatements": 5,
+    "module": true,
     "nocomma": true,
     "nonbsp": true,
     "nonew": true,
