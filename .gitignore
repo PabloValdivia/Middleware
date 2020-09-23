@@ -1,5 +1,6 @@
 .sass-cache/
 composer.lock
+package-lock.json
 public/assets/scss/
 public/assets/demo/
 public/views/cache/
