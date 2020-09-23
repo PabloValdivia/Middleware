@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.32, created on 2020-09-22 12:00:42
+/* Smarty version 3.1.32, created on 2020-09-22 15:17:47
   from '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/category/read.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_5f6a119a00cfc3_15164087',
+  'unifunc' => 'content_5f6a3fcb518423_79006962',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b7fff85bbb28be496eac226f409307b916d0f179' => 
     array (
       0 => '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/category/read.tpl',
-      1 => 1600786815,
+      1 => 1600798665,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f6a119a00cfc3_15164087 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '13932357775f6a119a006d23_44747927';
+function content_5f6a3fcb518423_79006962 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '2911473505f6a3fcb50d755_81115400';
 ?>
 <div class="row">
     <div class="col-md-12">

@@ -23,7 +23,7 @@ class Base
     /**
      * Validate that the keys received match.
      *
-     * @return string
+     * @return boolean
      */
     public $keys;
 
@@ -36,9 +36,9 @@ class Base
      * List of possible actions or operations (CRUD) that can be executed 
      * by the system to manipulate the elements.
      *
-     * @return string
+     * @return boolean
      */
-    private $moduleList = "brand|category|order|partner";
+    private $moduleList = "brand|category|order|partner|product";
 
     public $module;
 
@@ -51,7 +51,7 @@ class Base
      * List of possible actions or operations (CRUD) that can be executed 
      * by the system to manipulate the elements.
      *
-     * @return string
+     * @return boolean
      */
     private $actionList = "create|read|update|delete";
 
@@ -61,11 +61,24 @@ class Base
         $this->index++;
         return in_array($this->action, explode("|", $this->actionList));
     }
+
+    /** 
+     * Flag block, detect the current status
+     * of elements
+     * 
+     * @return string
+     */
+    public $label = ['label label-default', 'label label-success', 'label label-warning', 'label label-error'];
+    public $button = ['btn btn-default', 'btn btn-success', 'btn btn-warning', 'btn btn-error'];
+
+    public function getFlag($e, $s) {
+        $this->$e[$s];
+    }
     
     /**
 	 * View contruction
 	 * 
-	 * @return view
+	 * @return string
 	 */    
     public $view;
     public $html;
@@ -84,6 +97,11 @@ class Base
         $this->html = $this->view->getTemplateDir(0) . '/' . $this->module . '/' . $this->action . '.tpl';
     }
 
+    /**
+     * Verify if the view exist
+     * 
+     * @return boolean
+     */
     public function isView() {
         $this->index++;
         return is_file($this->html);

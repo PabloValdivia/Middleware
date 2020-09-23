@@ -15,7 +15,7 @@ class Order extends Base
     private $db;
 
     /** Table Head */
-    public $thead = ['ID', 'Reference', 'Customer', 'Payment Method', 'Total'];
+    public $thead = ['#', 'Reference', 'Customer', 'Payment Method', 'Total'];
 
     /** Order ID */
     private $id = 0;

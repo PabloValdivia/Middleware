@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.32, created on 2020-09-22 11:42:27
+/* Smarty version 3.1.32, created on 2020-09-22 15:18:55
   from '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/order/read.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_5f6a0d53375f88_15096287',
+  'unifunc' => 'content_5f6a400f06ef44_44253707',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16f46f546344ce4584c6f6b3b81167bb087e0624' => 
     array (
       0 => '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/order/read.tpl',
-      1 => 1600785742,
+      1 => 1600798732,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f6a0d53375f88_15096287 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '14389549015f6a0d5336d3b4_35975712';
+function content_5f6a400f06ef44_44253707 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '9749555035f6a400f068d26_36317214';
 ?>
 <div class="row">
     <div class="col-md-12">
