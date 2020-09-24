@@ -3,14 +3,24 @@
 /**
  *
  * Author : David Marquez
- * Date   : 22 September 2020
+ * Date   : 23 September 2020
  * 
  */
 require(MDLPH . 'Base.php');
 require(MDLPH . 'DB.php');
 
 class Brand extends Base
-{
+{   
+    /**
+     * Information about the construction 
+     * of the module
+     * 
+     * @return string
+     */
+    public $author = 'Totto Marquez';
+    public $email = 'davidmarsant@gmail.com';
+    public $version = '1.0.2';
+
     /** DB Connection */
     private $db;
 
@@ -36,5 +46,29 @@ class Brand extends Base
         } else {
             $this->_error = $this->db->connection->errorMsg();
         }
+    }
+
+    public function infoBrand()
+    {
+        $this->db = new DB('prestashop');
+
+        if ($this->db->connection->isConnected()) {
+            $this->synchronized = $this->db->connection
+                ->getOne(
+                    "SELECT MAX(tm.date_upd) AS date_upd FROM tm_manufacturer tm"
+                );
+            $this->setInfo();
+            $this->getLastDay();
+            $this->data = array(
+                'icon'      =>  $this->getIcon('module', $this->module),
+                'status'    =>  'active',
+                'author'    =>  $this->author,
+                'email'     =>  $this->email,
+                'version'   =>  $this->version,
+                'modified'  =>  $this->lastTime
+            );
+        }
+
+        $this->db->connection->close();
     }
 }

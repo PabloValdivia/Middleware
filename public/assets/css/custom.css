@@ -10,32 +10,40 @@
  */
 /* Fonts */
 @import url(font-awesome.min.css);
-#app .dataTables_wrapper thead tr th {
+#info .card-profile > .card-avatar > i {
+  padding: 0.5rem;
+  font-size: 3rem; }
+
+#app .card .card-header > .btn-group {
+  position: absolute;
+  top: 1rem;
+  right: 1rem; }
+#app .card thead tr th {
   padding-right: 1rem !important; }
-#app .dataTables_wrapper thead tr th::before,
-#app .dataTables_wrapper thead tr th::after {
+#app .card thead tr th::before,
+#app .card thead tr th::after {
   bottom: 0.5em;
   font-size: 14px; }
-#app .dataTables_wrapper .dataTables_length,
-#app .dataTables_wrapper .dataTables_filter,
-#app .dataTables_wrapper .dataTables_info,
-#app .dataTables_wrapper .dataTables_paginate {
+#app .card .card-body > .dataTables_wrapper > .dataTables_length,
+#app .card .card-body > .dataTables_wrapper > .dataTables_filter,
+#app .card .card-body > .dataTables_wrapper > .dataTables_info,
+#app .card .card-body > .dataTables_wrapper > .dataTables_paginate {
   padding: 1rem 0 1rem; }
-#app .dataTables_wrapper .dataTables_length,
-#app .dataTables_wrapper .dataTables_info {
+#app .card .card-body > .dataTables_wrapper > .dataTables_length,
+#app .card .card-body > .dataTables_wrapper > .dataTables_info {
   float: left; }
-#app .dataTables_wrapper .dataTables_filter,
-#app .dataTables_wrapper .dataTables_paginate {
+#app .card .card-body > .dataTables_wrapper > .dataTables_filter,
+#app .card .card-body > .dataTables_wrapper > .dataTables_paginate {
   float: right; }
-#app .dataTables_wrapper .paginate_button {
+#app .card .paginate_button {
   padding: 0.5rem 1rem;
   border: 1px solid; }
-#app .dataTables_wrapper .paginate_button.current {
+#app .card .card-body > .dataTables_wrapper > .dataTables_paginate .paginate_button.current {
   background-image: linear-gradient(60deg, #7b1fa2, #913f9e);
   color: #fff; }
-#app .dataTables_wrapper .paginate_button.previous {
+#app .card .card-body > .dataTables_wrapper > .dataTables_paginate .paginate_button.previous {
   border-radius: 5px 0 0 5px; }
-#app .dataTables_wrapper .paginate_button.next {
+#app .card .card-body > .dataTables_wrapper > .dataTables_paginate .paginate_button.next {
   border-radius: 0 5px 5px 0; }
 
 /*# sourceMappingURL=custom.css.map */

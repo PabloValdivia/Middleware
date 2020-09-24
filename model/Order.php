@@ -11,6 +11,16 @@ require(MDLPH . 'DB.php');
 
 class Order extends Base
 {
+    /**
+     * Information about the construction 
+     * of the module
+     * 
+     * @return string
+     */
+    public $author = 'Totto Marquez';
+    public $email = 'davidmarsant@gmail.com';
+    public $version = '1.0.2';
+
     /** DB Connection */
     private $db;
 
@@ -42,5 +52,29 @@ class Order extends Base
         } else {
             $this->_error = $this->db->connection->errorMsg();
         }
+    }
+
+    public function infoOrder()
+    {
+        $this->db = new DB('prestashop');
+
+        if ($this->db->connection->isConnected()) {
+            $this->synchronized = $this->db->connection
+                ->getOne(
+                    "SELECT MAX(tor.date_upd) AS date_upd FROM tm_orders tor"
+                );
+            $this->setInfo();
+            $this->getLastDay();
+            $this->data = array(
+                'icon'      =>  $this->getIcon('module', $this->module),
+                'status'    =>  'active',
+                'author'    =>  $this->author,
+                'email'     =>  $this->email,
+                'version'   =>  $this->version,
+                'modified'  =>  $this->lastTime
+            );
+        }
+
+        $this->db->connection->close();
     }
 }

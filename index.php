@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 $_SESSION['temp'] = time();
 require_once('./config/config.php');
 
@@ -9,49 +8,38 @@ require_once('./config/config.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= $_NAME ?></title>
+    <title><?= $_SESSION['project_name'] ?></title>
     <link rel="shortcut icon" href="./public/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./vendor/twbs/bootstrap/dist/css/bootstrap.min.css"></script>
     <link rel="stylesheet" href="./public/assets/css/material-dashboard.min.css">
+    <!-- DataTable CSS -->
+    <link rel="stylesheet" href="./node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="./node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="./node_modules/datatables.net-editor-bs4/css/editor.bootstrap4.min.css">
+    <link rel="stylesheet" href="./node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="./node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+    <!-- Custom -->
     <link rel="stylesheet" href="./public/assets/css/custom.css">
 </head>
 <body class="dark-edition">
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-background-color="black" data-image="./public/assets/img/sidebar-2.jpg">
             <div class='logo'>
-                <a class="simple-text logo-normal"><?= $_NAME ?></a>   
+                <a class="simple-text logo-normal"><?= $_SESSION['project_name'] ?></a>   
                 <input type="hidden" id="tkn" value="<?= sha1($tkn) ?>"> 
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" data-module="<?= base64_encode('Dashboard') ?>" data-controller="<?= base64_encode('read') ?>">
-                            <i class="fa fa-dashboard"></i>
-                            <p>Dashboard</p>
+                    <li class="nav-item btn-action">
+                        <a class="nav-link" data-module="backup" data-method="read">
+                            <i class="fa fa-database"></i>
+                            <p class="text-capitalize">backup</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('Brand') ?>" data-controller="<?= base64_encode('read') ?>">
-                            <i class="fa fa-building"></i>
-                            <p>Brand</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('Category') ?>" data-controller="<?= base64_encode('read') ?>">
+                    <li class="nav-item btn-action">
+                        <a class="nav-link" data-module="cron" data-method="read">
                             <i class="fa fa-tasks"></i>
-                            <p>Category</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('Order') ?>" data-controller="<?= base64_encode('read') ?>">
-                            <i class="fa fa-paste"></i>
-                            <p>Order</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-module="<?= base64_encode('Product') ?>" data-controller="<?= base64_encode('read') ?>">
-                            <i class="fa fa-dropbox"></i>
-                            <p>Product</p>
+                            <p class="text-capitalize">task</p>
                         </a>
                     </li>
                 </ul>
@@ -126,7 +114,7 @@ require_once('./config/config.php');
                         <ul>
                             <li><a href="http://market.sumagroups.com/index.php" style="font-family:inherit;">1Click</a></li>
                             <li><a href="erp.sumagroups.com:9073/webui/">iDempiere</a></li>
-                            <li><a href="#">License</a></li>
+                            <li><a href="https://github.com/TottoDg/Middleware/blob/master/LICENSE">License</a></li>
                         </ul>
                     </nav>
                     <div id="date" class="copyright float-right">
@@ -144,11 +132,17 @@ require_once('./config/config.php');
     <script src="./public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Chartist JS -->
     <script src="./public/assets/js/plugins/chartist.min.js"></script>
+    <!-- DataTable JS -->
+    <script src="./node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="./node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js"></script>
+    <script src="./node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="./node_modules/datatables.net-select/js/dataTables.select.min.js"></script>
+
     <!--  Notifications Plugin    -->
     <script src="./public/assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="./public/assets/js/material-dashboard.js?v=2.1.0"></script>
-    <script src="./public/assets/js/main.js"></script>   
+    <script type="module" src="./public/assets/js/main.js"></script>   
     <script src="./public/assets/js/custom.js"></script>
 </body>
 </html>

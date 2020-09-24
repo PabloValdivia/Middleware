@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.32, created on 2020-09-22 15:17:47
+/* Smarty version 3.1.32, created on 2020-09-23 12:16:22
   from '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/category/read.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_5f6a3fcb518423_79006962',
+  'unifunc' => 'content_5f6b66c6320d41_62471657',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b7fff85bbb28be496eac226f409307b916d0f179' => 
     array (
       0 => '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/category/read.tpl',
-      1 => 1600798665,
+      1 => 1600874179,
       2 => 'file',
     ),
   ),
@@ -20,17 +20,17 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f6a3fcb518423_79006962 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '2911473505f6a3fcb50d755_81115400';
+function content_5f6b66c6320d41_62471657 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '19600442765f6b66c6310971_55344715';
 ?>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title text-capitalize"><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
-</h4>
-                <p class="card-category"><?php echo $_smarty_tpl->tpl_vars['description']->value;?>
-</p>
+                <h3 class="card-title text-capitalize"><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+</h3>
+                <h5 class="card-category"><?php echo $_smarty_tpl->tpl_vars['description']->value;?>
+</h5>
             </div>
             <div class="card-body">
                 <table class="table">

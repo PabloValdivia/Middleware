@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', '1');
 
 /** Smarty **/
 include(VNDPH . 'smarty/libs/Smarty.class.php');
@@ -15,9 +13,19 @@ include(VNDPH . 'smarty/libs/Smarty.class.php');
 */
 class Base
 {    
-    /** Index of code process */
+    /**
+     * Index for all action execute by controller to get 
+     * a flag message if the code crash
+     * 
+     * @return int
+     */
     public $index = 0;
 
+    /**
+     * Variable to get all result data 
+     * 
+     * @return array
+     */
     public $data;
 
     /**
@@ -27,40 +35,41 @@ class Base
      */
     public $keys;
 
-	public function isValid() {
-        $this->index++;
-		return base64_encode($this->keys['GT']) === $this->keys['PT'];
-    }
+	public function isValid() { return base64_encode($this->keys['GT']) === $this->keys['PT']; }
 
     /**
-     * List of possible actions or operations (CRUD) that can be executed 
+     * List of possible modules to be used for the controller 
+     * system to manipulate the objects.
+     *
+     * @return boolean
+     */
+    public $moduleList = "backup|brand|category|cron|order|partner|product";
+
+    public function isModule() { return in_array($this->module, explode("|", $this->moduleList)); }
+
+    /**
+     * List of possible cron that can be executed by the system to 
+     * manipulate the elements.
+     * 
+     * @return boolean
+     */
+    public $crontab = "brand|category|order|partner|product";
+
+    public $cron;
+
+    public function isCron() { return in_array($this->cron, explode("|", $this->crontab)); }
+
+    /**
+     * List of possible method or operations (CRUD) that can be executed 
      * by the system to manipulate the elements.
      *
      * @return boolean
      */
-    private $moduleList = "brand|category|order|partner|product";
+    public $methodList = "info|create|read|update|delete";
 
-    public $module;
+    public $method = null;
 
-    public function isModule () {
-        $this->index++;
-        return in_array($this->module, explode("|", $this->moduleList));
-    }
-
-    /**
-     * List of possible actions or operations (CRUD) that can be executed 
-     * by the system to manipulate the elements.
-     *
-     * @return boolean
-     */
-    private $actionList = "create|read|update|delete";
-
-    public $action = null;
-
-    public function isCRUD() {
-        $this->index++;
-        return in_array($this->action, explode("|", $this->actionList));
-    }
+    public function isCRUD() { return in_array($this->method, explode("|", $this->methodList)); }
 
     /** 
      * Flag block, detect the current status
@@ -68,15 +77,70 @@ class Base
      * 
      * @return string
      */
+    public $status = ['inactive', 'active', 'different', 'deleted'];
     public $label = ['label label-default', 'label label-success', 'label label-warning', 'label label-error'];
-    public $button = ['btn btn-default', 'btn btn-success', 'btn btn-warning', 'btn btn-error'];
+    public $button = ['btn btn-default', 'btn btn-primary', 'btn btn-warning', 'btn btn-error'];
 
-    public function getFlag($e, $s) {
-        $this->$e[$s];
+    public function getFlag($e, $s) { return $this->$e[$s]; }
+
+    /**
+     * List of icon per modules and action
+     * 
+     * @return string
+     */
+    public $icon = [
+        'module' => [
+            "brand" => 'fa-copyright', 
+            "category" => 'fa-sitemap', 
+            "order" => 'fa-list', 
+            "partner" => 'fa-users', 
+            "product" => 'fa-th-large'
+        ],
+        'method' => [
+            "info" => 'fa-eye', 
+            "create" => 'fa-plus',
+            "read" => 'fa-list',
+            "update" => 'fa-edit',
+            "delete" => 'fa-trash'
+        ]
+    ];
+
+    public function getIcon($t, $d) { return $this->icon[$t][$d]; }
+
+    /**
+     * Set values in some variables to pass information 
+     * about module to view
+     * 
+     * @return string
+     */
+    public function setInfo() 
+    {
+        $this->title = $this->module;
+        $this->description = ucfirst($this->module) . ' details';
+    }
+
+    /**
+     * Get the last moment when the file was modified
+     * 
+     * @return array
+     */
+    public $lastTime;
+    
+    public function getLastDay()
+    {
+        $now = new DateTime('NOW');
+        $now->setTimezone(new DateTimeZone('America/Caracas'));
+
+        /** Last modified */
+        $this->lastTime = new DateTime(date('F d Y H:i:s.', getlastmod()));
+        $this->lastTime->setTimezone(new DateTimeZone('America/Caracas'));
+
+        $this->lastTime = $now->diff($this->lastTime);
     }
     
     /**
-	 * View contruction
+	 * Construct of the view to display data just if the modules 
+     * have a file to get each template per action
 	 * 
 	 * @return string
 	 */    
@@ -86,34 +150,25 @@ class Base
     public $description;
 
 	public function getView() {
-        $this->index++;
-		/** The class is instantiated to build the views that will be supplied to the client. **/
         $this->view = new Smarty;
         $this->view->caching = true;
-        $this->view->setTemplateDir(PUBPH . 'views/modules/')
-                    ->setCacheDir(PUBPH . 'views/cache')
-                    ->setCompileDir(PUBPH . 'views_c/');
+        $this->view
+            ->setTemplateDir(PUBPH . 'views/modules/')
+            ->setCacheDir(PUBPH . 'views/cache')
+            ->setCompileDir(PUBPH . 'views_c/');
         
-        $this->html = $this->view->getTemplateDir(0) . '/' . $this->module . '/' . $this->action . '.tpl';
+        $this->html = $this->view->getTemplateDir(0) . '/' . $this->module . '/' . $this->method . '.tpl';
     }
 
-    /**
-     * Verify if the view exist
-     * 
-     * @return boolean
-     */
-    public function isView() {
-        $this->index++;
-        return is_file($this->html);
-    }
+    public function isView() { return is_file($this->html); }
     
     /**
-     * Automatic response list separated by language and 
+     * Automatic error list separated by language and 
      * index in an array.
      *
      * @return array
      */
-    private $responseList = array (
+    private $errorList = array (
         'spanish'   =>  array (
             'system'=>	array (
                 1   =>  '¡Error de criptografia en la clave asimetrica RSA/PKCS!',
@@ -144,8 +199,4 @@ class Base
         )
     );
     public $_error;
-
-    public function getError($_lang = 0) {
-        $this->_error = $this->responseList[$_lang][$this->module][$this->index];
-    }
 }

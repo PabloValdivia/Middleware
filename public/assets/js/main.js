@@ -1,8 +1,10 @@
-import { initTable } from './modules/initTable.js';
+import { initTable } from './modules/datatable.js';
 
 $(function () {
   const resp = '#app';
   const tkn = $('#tkn').val();
 
-  initTable(resp, tkn);
+  $(document).on('click', '.nav-link', function () {
+    initTable($(this), resp, tkn);
+  });
 });

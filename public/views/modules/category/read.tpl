@@ -2,8 +2,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title text-capitalize">{$title}</h4>
-                <p class="card-category">{$description}</p>
+                <h3 class="card-title text-capitalize">{$title}</h3>
+                <h5 class="card-category">{$description}</h5>
             </div>
             <div class="card-body">
                 <table class="table">

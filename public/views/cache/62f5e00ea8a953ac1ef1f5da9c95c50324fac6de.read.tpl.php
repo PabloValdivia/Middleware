@@ -1,30 +1,30 @@
 <?php
-/* Smarty version 3.1.32, created on 2020-09-23 00:38:01
+/* Smarty version 3.1.32, created on 2020-09-23 14:42:09
   from '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/category/read.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_5f6ac31961f0d6_51925806',
+  'unifunc' => 'content_5f6b88f1edd082_73497430',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b7fff85bbb28be496eac226f409307b916d0f179' => 
     array (
       0 => '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/category/read.tpl',
-      1 => 1600798665,
+      1 => 1600874179,
       2 => 'file',
     ),
   ),
   'cache_lifetime' => 3600,
 ),true)) {
-function content_5f6ac31961f0d6_51925806 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6b88f1edd082_73497430 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title text-capitalize">category</h4>
-                <p class="card-category">Category details</p>
+                <h3 class="card-title text-capitalize">category</h3>
+                <h5 class="card-category">Category details</h5>
             </div>
             <div class="card-body">
                 <table class="table">

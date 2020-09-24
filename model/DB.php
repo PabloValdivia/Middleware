@@ -14,8 +14,8 @@ ini_set('display_errors', '1');
  *
  * @return file
  */
-require( VNDPH . '/adodb5/adodb.inc.php');
-require( VNDPH . '/adodb5/tohtml.inc.php');
+require( VNDPH . 'adodb/adodb-php/adodb.inc.php');
+require( VNDPH . 'adodb/adodb-php/tohtml.inc.php');
 
 /*
 |--------------------------------------------------------------------------

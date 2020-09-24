@@ -17,16 +17,12 @@ if (isset($_SESSION['temp']) || isset($_SESSION['User_ID'])) {
     $category->keys = array('GT' => $_GET['token'], 'PT' => $_POST['token']);
     if ( $category->isValid() ) {
         $category->module = (isset($_POST['module'])) ? strtolower(base64_decode($_POST['module'])) : null ;    
-        $category->action = (isset($_POST['controller'])) ? base64_decode($_POST['controller']) : null ;
+        $category->method = (isset($_POST['method'])) ? base64_decode($_POST['method']) : null ;
         
         if ( $category->isModule() && $category->isCRUD()) {
             /** This is the method to execute */
-            $act = $category->action . ucfirst($category->module) ;
-        } else {
-            $category->getError(0);
+            $act = $category->method . ucfirst($category->module) ;
         }
-    } else {
-        $category->getError(0);
     }
 
     $category->getView();
@@ -34,10 +30,12 @@ if (isset($_SESSION['temp']) || isset($_SESSION['User_ID'])) {
         if(!$category->view->isCached($category->html)) {
             /** Execute */
             $category->$act();
-            $category->view->assign('title', $category->module)
-                        ->assign('description', $category->description)
-                        ->assign('thead', $category->thead)
-                        ->assign('data', $category->data);
+            $category->view
+                ->assign('title', $category->module)
+                ->assign('description', $category->description)
+                ->assign('thead', $category->thead)
+                ->assign('data', $category->data)
+                ->assign('synchronized', $category->synchronized);
         }
         $category->view->display($category->html);
     } 

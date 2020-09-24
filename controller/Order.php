@@ -17,16 +17,12 @@ if (isset($_SESSION['temp']) || isset($_SESSION['User_ID'])) {
     $order->keys = array('GT' => $_GET['token'], 'PT' => $_POST['token']);
     if ( $order->isValid() ) {
         $order->module = (isset($_POST['module'])) ? strtolower(base64_decode($_POST['module'])) : null ;    
-        $order->action = (isset($_POST['controller'])) ? base64_decode($_POST['controller']) : null ;
+        $order->method = (isset($_POST['method'])) ? base64_decode($_POST['method']) : null ;
         
         if ( $order->isModule() && $order->isCRUD()) {
             /** This is the method to execute */
-            $act = $order->action . ucfirst($order->module) ;
-        } else {
-            $order->getError(0);
+            $act = $order->method . ucfirst($order->module) ;
         }
-    } else {
-        $order->getError(0);
     }
 
     $order->getView();
@@ -34,10 +30,12 @@ if (isset($_SESSION['temp']) || isset($_SESSION['User_ID'])) {
         if(!$order->view->isCached($order->html)) {
             /** Execute */
             $order->$act();
-            $order->view->assign('title', $order->module)
-                        ->assign('description', $order->description)
-                        ->assign('thead', $order->thead)
-                        ->assign('data', $order->data);
+            $order->view
+                ->assign('title', $order->module)
+                ->assign('description', $order->description)
+                ->assign('thead', $order->thead)
+                ->assign('data', $order->data)
+                ->assign('synchronized', $order->synchronized);
         }
         $order->view->display($order->html);
     } 

@@ -8,7 +8,11 @@
 | ###
 |
 */
-$_NAME = 'Middleware';
+$_SESSION['project_name'] = 'Middleware';
+$_SESSION['project_author'] = array(
+  'name' => 'Totto Marquez',
+  'email' => 'davidmarsant@gmail.com',
+);
 
 /*
 |--------------------------------------------------------------------------
