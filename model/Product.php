@@ -7,7 +7,6 @@
  * 
  */
 require(MDLPH . 'Base.php');
-require(MDLPH . 'DB.php');
 
 class Product extends Base
 {
@@ -21,8 +20,8 @@ class Product extends Base
     public $email = 'davidmarsant@gmail.com';
     public $version = '1.0.2';
     
-    /** DB Connection */
-    private $db;
+    /** Table */
+    private $table = "tm_product";
 
     /** Table Head */
     public $thead = ['#', 'Reference', 'Product', 'Category', 'Brand'];
@@ -38,8 +37,8 @@ class Product extends Base
             $this->data = $this->db->connection
                 ->getAll(
                     "SELECT ROW_NUMBER() OVER (ORDER BY tp.id_product) AS nro, tp.reference, tpl.name AS product, tcl.name AS category, tm.name AS brand, CASE WHEN tp.active = 1 THEN 'active' ELSE 'inactive' END AS status, tp.date_add AS created, tp.date_upd AS updated
-                    FROM tm_product tp 
-                    INNER JOIN tm_product_lang tpl ON tpl.id_product = tp.id_product AND tpl.id_lang = 2
+                    FROM $this->table tp 
+                    INNER JOIN ". $this->table ."_lang tpl ON tpl.id_product = tp.id_product AND tpl.id_lang = 2
                     LEFT JOIN tm_category tc ON tc.id_category = tp.id_category_default 
                     LEFT JOIN tm_category_lang tcl ON tcl.id_category = tc.id_category AND tcl.id_lang = 2
                     INNER JOIN tm_manufacturer tm ON tm.id_manufacturer = tp.id_manufacturer 
@@ -57,12 +56,9 @@ class Product extends Base
         $this->db = new DB('prestashop');
 
         if ($this->db->connection->isConnected()) {
-            $this->synchronized = $this->db->connection
-                ->getOne(
-                    "SELECT MAX(tp.date_upd) AS date_upd FROM tm_product tp"
-                );
             $this->setInfo();
             $this->getLastDay();
+            $this->getLastSynchronized($this->table);
             $this->data = array(
                 'icon'      =>  $this->getIcon('module', $this->module),
                 'status'    =>  'active',

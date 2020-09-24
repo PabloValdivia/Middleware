@@ -7,7 +7,6 @@
  * 
  */
 require(MDLPH . 'Base.php');
-require(MDLPH . 'DB.php');
 
 class Cron extends Base
 {

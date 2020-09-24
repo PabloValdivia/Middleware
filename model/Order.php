@@ -7,7 +7,6 @@
  * 
  */
 require(MDLPH . 'Base.php');
-require(MDLPH . 'DB.php');
 
 class Order extends Base
 {
@@ -21,8 +20,8 @@ class Order extends Base
     public $email = 'davidmarsant@gmail.com';
     public $version = '1.0.2';
 
-    /** DB Connection */
-    private $db;
+    /** Table */
+    public $table = 'tm_orders';
 
     /** Table Head */
     public $thead = ['#', 'Reference', 'Customer', 'Payment Method', 'Total'];
@@ -44,7 +43,7 @@ class Order extends Base
             $this->data = $this->db->connection
                 ->getAll(
                     "SELECT tor.id_order, tor.reference, CONCAT(tc.firstname, ' ', tc.lastname) as name, tor.payment, tor.total_paid
-                    FROM tm_orders tor
+                    FROM $this->table tor
                     left join tm_customer tc on tor.id_customer = tc.id_customer"
                 );
             $this->title = $this->module;
@@ -59,12 +58,9 @@ class Order extends Base
         $this->db = new DB('prestashop');
 
         if ($this->db->connection->isConnected()) {
-            $this->synchronized = $this->db->connection
-                ->getOne(
-                    "SELECT MAX(tor.date_upd) AS date_upd FROM tm_orders tor"
-                );
             $this->setInfo();
             $this->getLastDay();
+            $this->getLastSynchronized($this->table);
             $this->data = array(
                 'icon'      =>  $this->getIcon('module', $this->module),
                 'status'    =>  'active',

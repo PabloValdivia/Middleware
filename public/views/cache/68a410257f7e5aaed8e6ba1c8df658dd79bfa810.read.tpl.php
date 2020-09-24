@@ -1,24 +1,24 @@
 <?php
-/* Smarty version 3.1.32, created on 2020-09-23 17:29:55
+/* Smarty version 3.1.32, created on 2020-09-24 10:35:27
   from '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/order/read.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_5f6bb043e3a886_26432313',
+  'unifunc' => 'content_5f6ca09f29b242_68237334',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16f46f546344ce4584c6f6b3b81167bb087e0624' => 
     array (
       0 => '/home/totto/Projects/middleware.sumagroups.com/public/views/modules/order/read.tpl',
-      1 => 1600798732,
+      1 => 1600954192,
       2 => 'file',
     ),
   ),
   'cache_lifetime' => 3600,
 ),true)) {
-function content_5f6bb043e3a886_26432313 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6ca09f29b242_68237334 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="row">
     <div class="col-md-12">
         <div class="card">

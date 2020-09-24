@@ -3,13 +3,13 @@
 /**
  *
  * Author : David Marquez
- * Date   : 23 September 2020
+ * Date   : 24 September 2020
  * 
  */
 require(MDLPH . 'Base.php');
 
-class Brand extends Base
-{   
+class Partner extends Base
+{
     /**
      * Information about the construction 
      * of the module
@@ -21,33 +21,34 @@ class Brand extends Base
     public $version = '1.0.2';
 
     /** Table */
-    private $table = "tm_manufacturer";
+    public $table = "tm_customer";
 
     /** Table Head */
-    public $thead = ['#', 'Brand', 'Status', 'Updated'];
+    public $thead = ['#', 'partner', 'email', 'iso', 'status', 'updated'];
 
-    /** Brand ID */
-    private $id = 0;
+    /** Partner ID */
+    public $id;
 
-    public function readBrand()
+    public function readPartner()
     {
         $this->db = new DB('prestashop');
 
         if ( $this->db->connection->isConnected() ) {
             $this->data = $this->db->connection
                 ->getAll(
-                    "SELECT ROW_NUMBER() OVER (ORDER BY tm.id_manufacturer) AS nro, tm.name, CASE WHEN tm.active = 1 THEN 'active' ELSE 'inactive' END AS status, tm.date_upd
-                    FROM $this->table tm 
-                    INNER JOIN ". $this->table ."_lang tml ON tml.id_manufacturer = tm.id_manufacturer AND tml.id_lang = 2"
+                    "SELECT ROW_NUMBER() OVER (ORDER BY tc.id_customer) AS nro, CONCAT(tc.firstname, ' ', tc.lastname) AS name, tc.email, tl.iso_code,  tc.active, tc.date_upd 
+                    FROM $this->table tc
+                    INNER JOIN tm_lang tl ON tl.id_lang = tc.id_lang"
                 );
-            $this->title = $this->module;
-            $this->description = ucfirst($this->module) . ' details';
+            $this->setInfo();
         } else {
             $this->_error = $this->db->connection->errorMsg();
         }
+
+        $this->db->connection->close();
     }
 
-    public function infoBrand()
+    public function infoPartner()
     {
         $this->db = new DB('prestashop');
 

@@ -2,6 +2,8 @@
 
 /** Smarty **/
 include(VNDPH . 'smarty/libs/Smarty.class.php');
+/** Database */
+include(MDLPH . 'DB.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +31,18 @@ class Base
     public $data;
 
     /**
-     * Validate that the keys received match.
+     * Store and validate keys.
      *
      * @return boolean
      */
     public $keys;
+
+    /** 
+     * Hadle all connections to databases
+     * 
+     * @return object
+     */
+    public $db;
 
 	public function isValid() { return base64_encode($this->keys['GT']) === $this->keys['PT']; }
 
@@ -137,6 +146,29 @@ class Base
 
         $this->lastTime = $now->diff($this->lastTime);
     }
+
+    /**
+     * Get date of the last table synchronized
+     * 
+     * @return string
+     */
+    public $synchronized;
+
+    public function getLastSynchronized( $table ) 
+    {
+        $this->db = new DB('prestashop');
+
+        if ( $this->db->connection->isConnected() ) {
+            $this->synchronized = $this->db->connection
+                ->getOne(
+                    "SELECT MAX(tb.date_upd) AS date_upd FROM $table tb"
+                );
+        } else {
+            $this->_error = $this->db->connection->errorMsg();
+        }
+
+        $this->db->connection->close();
+    }
     
     /**
 	 * Construct of the view to display data just if the modules 
@@ -149,7 +181,8 @@ class Base
     public $title;
     public $description;
 
-	public function getView() {
+    public function getView() 
+    {
         $this->view = new Smarty;
         $this->view->caching = true;
         $this->view
