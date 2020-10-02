@@ -2,15 +2,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title text-capitalize">{$title}</h4>
-                <p class="card-category">{$description}</p>
+                <h4 class="card-title text-capitalize">{$info.title} data {$table@key}</h4>
+                <p class="card-category">{$info.description}</p>
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead class="text-primary">
                         <tr>
-                        {foreach $thead as $column}
-                            <th>{$column}</th>
+                        {foreach $column as $cell}
+                            <th class="{if $cell eq "id"}text-uppercase{else}text-capitalize{/if}">{$cell}</th>
                         {/foreach}
                         </tr>
                     </thead>
@@ -18,7 +18,9 @@
                     {foreach $data as $row}
                         <tr>
                         {foreach $row as $cell}
-                            <td class="{if $cell@key === 'id' }text-primary{/if}">{$cell}</td>
+                            <td class="{if $cell@key === 'id' }text-primary{/if}">
+                                {$cell}
+                            </td>
                         {/foreach}
                         </tr>
                     {/foreach}

@@ -2,8 +2,8 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title text-capitalize">{$title}</h4>
-                <p class="card-category">Crontab info about {$title} sync</p>
+                <h4 class="card-title text-capitalize">{$info.title}</h4>
+                <p class="card-category">{$info.description}</p>
             </div>
             <div class="card-body">
                 <form>
@@ -11,13 +11,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Module</label>
-                                <input type="text" class="form-control text-capitalize" value="{$title}" disabled>
+                                <input type="text" class="form-control text-capitalize" value="{$info.title}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Last synchronized</label>
-                                <input type="text" class="form-control" value="{$synchronized}" disabled>
+                                <input type="text" class="form-control" value="{$info.synchronized}" disabled>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <div class="form-group">
                             <label>Description</label>
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" disabled>{$description}</textarea>
+                                <textarea class="form-control" rows="3" disabled>{$info.description}</textarea>
                             </div>
                         </div>
                         </div>
@@ -115,14 +115,14 @@
                 </form>
             </div>
             <div class="card-footer text-muted">
-            {if $modified->h ge 1 && $modified->days le 1}
-                Modified {$modified->h} hour(s) ago 
-            {elseif $modified->days ge 1 && $modified->days le 30}
-                Modified {$modified->days} day(s) ago
-            {elseif $modified->days ge 29 && $modified->days le 366}
-                Modified {$modified->m} month ago
-            {elseif $modified->days ge 365}
-                Modified {$modified->y} year(s) ago
+            {if $info.modified->h ge 1 && $info.modified->days le 1}
+                Modified {$info.modified->h} hour(s) ago 
+            {elseif $info.modified->days ge 1 && $info.modified->days le 30}
+                Modified {$info.modified->days} day(s) ago
+            {elseif $info.modified->days ge 29 && $info.modified->days le 366}
+                Modified {$info.modified->m} month ago
+            {elseif $info.modified->days ge 365}
+                Modified {$info.modified->y} year(s) ago
             {else}
                 Modified few minutes ago
             {/if}
@@ -132,26 +132,27 @@
     <div class="col-md-4">
         <div class="card card-profile">
             <div class="card-avatar card-header-primary img-round">
-                <i class="fa {$data.icon}"></i>
+                <i class="fa {$info.icon}"></i>
             </div>
             <div class="card-body">
                 <h6 class="card-category text-capitalize">modulo</h6>
-                <h4 class="card-title text-capitalize">{$title}</h4>
+                <h4 class="card-title text-capitalize">{$info.title}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="card-category text-capitalize">status: <span class="badge badge-primary">active</span></p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="card-category text-capitalize">version: <span class="badge badge-primary">{$data.version}</span></p>
+                        <p class="card-category text-capitalize">version: <span class="badge badge-primary">{$info.version}</span></p>
                     </div>
                     <div class="col-sm-12">
-                        <p class="card-category text-capitalize text-left">author: {$data.author}</p>
+                        <p class="card-category text-capitalize text-left">author: {$info.author}</p>
                     </div>
                     <div class="col-sm-12">
-                        <p class="card-category text-capitalize text-left">email: <a href="mailto:{$data.email}" class="text-primary text-lowercase">{$data.email}</a></p>
+                        <p class="card-category text-capitalize text-left">email: <a href="mailto:{$info.email}" class="text-primary text-lowercase">{$info.email}</a></p>
                     </div>
                     <div class="col-sm-12">
-                        <a class="btn btn-primary btn-round text-capitalize nav-link" data-module="{$title}" data-method="read">view</a>
+                        <a class="btn btn-primary btn-round text-capitalize nav-link" data-module="{$info.title}" data-method="read">view</a>
+                        <a class="btn btn-success btn-round text-capitalize nav-link" data-module="{$info.title}" data-method="sync">updated</a>
                     </div>
                 </div>
             </div>

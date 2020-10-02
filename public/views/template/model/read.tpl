@@ -2,15 +2,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title text-capitalize">{$title}</h4>
-                <p class="card-category">{$description}</p>
+                <h3 class="card-title text-capitalize">{$info.title}</h3>
+                <h5 class="card-category">{$info.description}</h5>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table responsive nowrap" width="100%">
                     <thead class="text-primary">
                         <tr>
-                        {foreach $thead as $column}
-                            <th class="text-capitalize">{$column}</th>
+                        {foreach $column as $cell}
+                            <th class="{if $cell eq "id"}text-uppercase{else}text-capitalize{/if}">{$cell}</th>
                         {/foreach}
                         </tr>
                     </thead>
@@ -18,7 +18,7 @@
                     {foreach $data as $row}
                         <tr>
                         {foreach $row as $cell}
-                        {if $cell@iteration eq 3}
+                            {if $cell@key eq 'button'}
                             <td class="td-actions text-right">
                                 <div class="btn-group">
                                     <button type="button" class="{$cell.button} btn-round nav-link" data-module="{$cell.module}" data-method="{$cell.method}">
@@ -26,9 +26,12 @@
                                     </button>
                                 </div>
                             </td>
-                        {else}
-                            <td class="text-capitalize text-left">{$cell}</td>
-                        {/if}
+                            {else}
+                            <td class="{if $cell@key eq 'name'}text-capitalize{/if}">
+                                {$cell}
+                            </td>
+                            {/if}
+                            </td>
                         {/foreach}
                         </tr>
                     {/foreach}
